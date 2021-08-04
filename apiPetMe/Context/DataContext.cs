@@ -10,7 +10,7 @@ namespace apiPetMe.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-2NG55CV\SQLEXPRESS ; DataBase=PetMe ; Trusted_Connection=True; ");
+            optionsBuilder.UseSqlServer(@"Data Source=SQL5105.site4now.net;Initial Catalog=db_a782b2_petme;User Id=db_a782b2_petme_admin;Password=petme.2021");
         }
 
     }

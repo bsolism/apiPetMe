@@ -23,7 +23,9 @@ namespace apiPetMe.DomainServices
             var key = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(secretKey));
             var claims = new Claim[]{
-                new Claim(ClaimTypes.Name, user.Name, user.Email),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim("email", user.Email),
+                new Claim("phoneNumber", user.PhoneNumber)
             };
             var signingCredentials = new SigningCredentials(
                 key, SecurityAlgorithms.HmacSha256Signature
