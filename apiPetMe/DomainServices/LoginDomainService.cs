@@ -19,9 +19,9 @@ namespace apiPetMe.DomainServices
         {
             this.dc = dc;
         }
-        public async Task<User> FindUser(LoginReqDto User)
+        public async Task<User> FindUser(string email)
         {
-            var user= await dc.Users.FirstOrDefaultAsync(x => x.Email == User.Email);
+            var user= await dc.Users.FirstOrDefaultAsync(x => x.Email == email);
             if (user== null)
             {
                 return null;

@@ -1,5 +1,7 @@
 ﻿using apiPetMe.ApplicationServices.UnitOfWork;
+using apiPetMe.Dto;
 using apiPetMe.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,21 +16,23 @@ namespace apiPetMe.Controllers
         {
             this.uow = uow;
         }
+       
         [HttpGet]
         public Task<IEnumerable<User>> GetUser()
         {
+            
             return uow.UserApplication.GetUser();
         }
         [HttpGet("{email}")]
-        public Task<ActionResult<User>> GetById(string email)
+        public Task<User> GetById(string email)
         {
             var User = uow.UserApplication.FindUser(email);
             return User;
         }
         [HttpPost]
-        public async Task<IActionResult> AddUser(User User)
+        public async Task<IActionResult> AddUser(User user)
         {
-            var activit = await uow.UserApplication.AddUser(User);
+            var activit = await uow.UserApplication.AddUser(user);
             if (activit == null)
             {
                 return BadRequest();
@@ -36,9 +40,9 @@ namespace apiPetMe.Controllers
             return Ok(activit);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User User)
+        public async Task<IActionResult> UpdateUser(int id, [FromForm] UserDto userDto)
         {
-            var user = await uow.UserApplication.UpdateUser(id, User);
+            var user = await uow.UserApplication.UpdateUser(id, userDto);
             if (user == null)
             {
                 return BadRequest();

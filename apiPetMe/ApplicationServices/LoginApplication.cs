@@ -2,23 +2,24 @@
 using apiPetMe.Dto;
 using apiPetMe.Helper;
 using apiPetMe.Interface.Application;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace apiPetMe.ApplicationServices
 {
     public class LoginApplication : ILoginApplication
     {
-        private readonly LoginResDto loginResDTO;
+        
         private readonly IDomainUnitOfWork duow;
 
-        public LoginApplication(LoginResDto loginResDTO, IDomainUnitOfWork duow)
+        public LoginApplication(IDomainUnitOfWork duow)
         {
-            this.loginResDTO = loginResDTO;
+           
             this.duow = duow;
         }
         public async Task<LoginResDto> Login(LoginReqDto loginReqDto)
         {
-            var user = await duow.LoginDomainService.FindUser(loginReqDto);
+            var user = await duow.LoginDomainService.FindUser(loginReqDto.Email);
 
             if (user == null)
             {
@@ -29,10 +30,10 @@ namespace apiPetMe.ApplicationServices
             {
                 return null;
             }
-            loginResDTO.Name = user.Name;
-            loginResDTO.Token = duow.CreateToken.CreateJWT(user);
-            return loginResDTO;
+            return new LoginResDto { Name = user.Name, Token = duow.CreateToken.CreateJWT(user) };
+            
         }
+   
 
     }
 }

@@ -1,8 +1,12 @@
 ﻿using apiPetMe.Context;
+using apiPetMe.Dto;
 using apiPetMe.Interface.Domain;
 using apiPetMe.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace apiPetMe.DomainServices
@@ -10,10 +14,12 @@ namespace apiPetMe.DomainServices
     public class UserDomain : IUserDomain
     {
         private readonly DataContext dc;
+        private readonly IWebHostEnvironment environment;
 
-        public UserDomain(DataContext dc)
+        public UserDomain(DataContext dc, IWebHostEnvironment environment)
         {
             this.dc = dc;
+            this.environment = environment;
         }
         public bool isComplete(User user)
         {
@@ -24,12 +30,30 @@ namespace apiPetMe.DomainServices
             if(user.Password == null) return false;
             return true;
         }
-        public async Task<User> FindUser(string email)
+        public UserDto UploadImage(UserDto userDto)
         {
-            User User = await dc.Users.FirstOrDefaultAsync(x => x.Email== email);
-            return User;
+            string guidImagen;
+            if (userDto.File != null)
+            {
+                if (!Directory.Exists(environment.WebRootPath + "\\UserImageProfile\\"))
+                {
+                    Directory.CreateDirectory(environment.WebRootPath + "\\UserImageProfile\\");
+                }
+                string fichero = Path.Combine(environment.WebRootPath, "UserImageProfile");
+                guidImagen = Guid.NewGuid().ToString() + userDto.File.FileName;
+                string url = Path.Combine(fichero, guidImagen);
+                userDto.File.CopyTo(new FileStream(url, FileMode.Create));
+
+                userDto.Image = guidImagen;
+
+
+                return userDto;
+            }
+
+            return userDto;
         }
-        
+
+
 
     }
 }

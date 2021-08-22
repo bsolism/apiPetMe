@@ -1,8 +1,4 @@
 ﻿using apiPetMe.Interface.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace apiPetMe.ApplicationServices.UnitOfWork
 {
@@ -10,5 +6,6 @@ namespace apiPetMe.ApplicationServices.UnitOfWork
     {
         ILoginApplication LoginApplication { get; }
         IUserApplication UserApplication { get; }
+        IRecoveryPassApplication RecoveryPassApplication { get; }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using apiPetMe.Dto;
-using apiPetMe.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace apiPetMe.Interface.Domain
 {
-    public interface ICreateToken
+    public interface IRecoveryPassDomain
     {
-        string CreateJWT(User user);
-        string TokenRecovery(RecoveryPassDto recoveryPassDto);
-
+        string validatorRecovery(RecoveryPassDto dataRecovery, HttpContext session);
     }
 }

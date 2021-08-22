@@ -1,7 +1,10 @@
-﻿using apiPetMe.Context;
+﻿using apiPetMe.ApplicationServices.UnitOfWork;
+using apiPetMe.Context;
+using apiPetMe.Dto;
 using apiPetMe.Interface.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +16,14 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
     {
         private readonly DataContext dc;
         private readonly IConfiguration configuration;
+        private readonly IOptions<EmailSenderOptions> options;
         private readonly IWebHostEnvironment environment;
 
-        public DomainUnitOfWork(DataContext dc, IConfiguration configuration, IWebHostEnvironment environment)
+        public DomainUnitOfWork(DataContext dc, IConfiguration configuration, IOptions<EmailSenderOptions> options, IWebHostEnvironment environment)
         {
             this.dc = dc;
             this.configuration = configuration;
+            this.options = options;
             this.environment = environment;
         }
         public ILoginDomainService LoginDomainService =>
@@ -26,7 +31,11 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
         public ICreateToken CreateToken =>
         new CreateToken(configuration);
         public IUserDomain UserDomain =>
-        new UserDomain(dc);
+        new UserDomain(dc, environment);
+        public IRecoveryPassDomain RecoveryPassDomain =>
+        new RecoveryPassDomain();
+        public IEmailSender EmailSender =>
+        new EmailSender(options);
 
     }
 }

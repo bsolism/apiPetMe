@@ -7,5 +7,7 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
         ILoginDomainService LoginDomainService { get; }
         ICreateToken CreateToken { get; }
         IUserDomain UserDomain { get; }
+        IRecoveryPassDomain RecoveryPassDomain { get; }
+        IEmailSender EmailSender { get; }
     }
 }

@@ -20,7 +20,7 @@ namespace apiPetMe.Controllers
             var login = await uow.LoginApplication.Login(loginReqDto);
             if(login== null)
             {
-                return BadRequest();
+                return BadRequest("Usuario o Password Incorrectos");
             }
             return Ok(login);
         }

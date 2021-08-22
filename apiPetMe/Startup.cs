@@ -1,15 +1,20 @@
 using apiPetMe.ApplicationServices.UnitOfWork;
 using apiPetMe.Context;
+using apiPetMe.DomainServices;
 using apiPetMe.DomainServices.UnitOfWorkDomain;
 using apiPetMe.Dto;
+using apiPetMe.Interface.Domain;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
 using System.Text;
 
 namespace apiPetMe
@@ -32,7 +37,10 @@ namespace apiPetMe
             services.AddScoped<IDomainUnitOfWork, DomainUnitOfWork>();
             services.AddScoped<DataContext>();
             services.AddScoped<LoginResDto>();
+            services.Configure<EmailSenderOptions>(Configuration.GetSection("EmailSenderOptions"));
             services.AddMvc().AddNewtonsoftJson(option => option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "apiPetMe", Version = "v1" });
@@ -42,6 +50,7 @@ namespace apiPetMe
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opt =>
             {
+                opt.SaveToken = true;
                 opt.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -71,7 +80,15 @@ namespace apiPetMe
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "UserImageProfile")),
+                RequestPath = "/api/UserImageProfile"
+            });
 
             app.UseEndpoints(endpoints =>
             {

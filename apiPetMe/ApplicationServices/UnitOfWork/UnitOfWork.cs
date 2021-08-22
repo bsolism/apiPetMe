@@ -3,6 +3,7 @@ using apiPetMe.Context;
 using apiPetMe.DomainServices.UnitOfWorkDomain;
 using apiPetMe.Dto;
 using apiPetMe.Interface.Application;
+using AutoMapper;
 
 namespace apiPetMe.ApplicationServices.UnitOfWork
 {
@@ -10,17 +11,19 @@ namespace apiPetMe.ApplicationServices.UnitOfWork
     {
         private readonly DataContext dc;
         private readonly IDomainUnitOfWork duow;
-        private readonly LoginResDto loginResDTO;
+        private readonly IMapper mapper;
 
-        public UnitOfWork(DataContext dc, IDomainUnitOfWork duow, LoginResDto loginResDTO)
+        public UnitOfWork(DataContext dc, IDomainUnitOfWork duow, IMapper mapper)
         {
             this.dc = dc;
             this.duow = duow;
-            this.loginResDTO = loginResDTO;
+            this.mapper = mapper;
         }
        public ILoginApplication LoginApplication =>
-       new LoginApplication(loginResDTO, duow);
+       new LoginApplication(duow);
        public IUserApplication UserApplication =>
-       new UserApplication(dc, duow);
+       new UserApplication(dc, duow, mapper);
+       public IRecoveryPassApplication RecoveryPassApplication =>
+       new RecoveryPassApplication(dc, duow);
     }
 }

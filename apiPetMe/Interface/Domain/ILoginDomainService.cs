@@ -9,6 +9,6 @@ namespace apiPetMe.Interface.Domain
 {
     public interface ILoginDomainService
     {
-        Task<User> FindUser(LoginReqDto User);
+        Task<User> FindUser(string email);
     }
 }
