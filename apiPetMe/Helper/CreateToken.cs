@@ -37,11 +37,12 @@ namespace apiPetMe.DomainServices
         {
             var key = Key();
             var claims = new Claim[]{
-                new Claim(ClaimTypes.Name, user.Name),
+                new Claim("name", user.Name),
                 new Claim("userId", user.UserId.ToString()),
                 new Claim("email", user.Email),
+                new Claim("password", user.Password),
                 new Claim("phoneNumber", user.PhoneNumber),
-                new Claim("image", user.Image)
+                new Claim("image", (user.Image==null)?"null": user.Image)
             };
             var signingCredentials = new SigningCredentials(
                 key, SecurityAlgorithms.HmacSha256Signature

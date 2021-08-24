@@ -32,12 +32,12 @@ namespace apiPetMe.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(User user)
         {
-            var activit = await uow.UserApplication.AddUser(user);
-            if (activit == null)
+            var data = await uow.UserApplication.AddUser(user);
+            if (data == null)
             {
                 return BadRequest();
             }
-            return Ok(activit);
+            return Ok(data);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromForm] UserDto userDto)
@@ -48,7 +48,8 @@ namespace apiPetMe.Controllers
                 return BadRequest();
 
             }
-            return StatusCode(201);
+            
+            return Ok(user);
         }
         [HttpDelete("{email}")]
         public async Task<IActionResult> DeleteUser(string email)

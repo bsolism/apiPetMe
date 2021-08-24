@@ -21,6 +21,18 @@ namespace apiPetMe.DomainServices
             this.dc = dc;
             this.environment = environment;
         }
+        public User User(UserDto userDto, User user)
+        {
+            if (userDto.Name != null) user.Name = userDto.Name;
+            if (userDto.Email != null) user.Email = userDto.Email;
+            if (userDto.PhoneNumber != null) user.PhoneNumber = userDto.PhoneNumber;
+            if (userDto.Image != null) user.Image = userDto.Image;
+            if (userDto.Password != null) user.Password = userDto.Password;
+            if (userDto.Sal != null) user.Sal = userDto.Sal;
+
+
+            return user;
+        }
         public bool isComplete(User user)
         {
             

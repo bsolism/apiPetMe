@@ -7,5 +7,6 @@ namespace apiPetMe.Interface.Domain
     {
         bool isComplete(User user);
         UserDto UploadImage(UserDto userDto);
+        User User(UserDto userDto, User user);
     }
 }

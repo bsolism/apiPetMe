@@ -55,21 +55,28 @@ namespace apiPetMe.ApplicationServices
             }
             return null;
         }
-        public async Task<ActionResult> UpdateUser(int id, UserDto userDto)
+        public async Task<LoginResDto> UpdateUser(int id, UserDto userDto)
         {
+            var userMap = await dc.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == userDto.Email);
             if (id != userDto.UserId)
             {
                 return null;
 
-            }           
+            }
+            
             uow.UserDomain.UploadImage(userDto);
-            var hash = Hash.Hashs(userDto.Password);
-            userDto.Password = hash.Password;
-            userDto.Sal = hash.Salt;
-            var userMap = mapper.Map<User>(userDto);            
+            if (userDto.Password != null)
+            {
+                var hash = Hash.Hashs(userDto.Password);
+                userDto.Password = hash.Password;
+                userDto.Sal = hash.Salt;
+
+            }
+            userMap = uow.UserDomain.User(userDto, userMap);
             dc.Entry(userMap).State = EntityState.Modified;
             var res = await dc.SaveChangesAsync();
-            return new ObjectResult(res);
+            if (res == 0) return null;
+            return new LoginResDto {Name = userMap.Name, Token = uow.CreateToken.CreateJWT(userMap) };
         }
         public async Task<IActionResult> DeleteUser(string email)
         {
