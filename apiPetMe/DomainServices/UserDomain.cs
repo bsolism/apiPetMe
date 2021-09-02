@@ -33,14 +33,14 @@ namespace apiPetMe.DomainServices
 
             return user;
         }
-        public bool isComplete(User user)
+        public string isComplete(User user)
         {
             
-            if(user.Name == null) return false;
-            if(user.Email == null) return false;
-            if(user.PhoneNumber == null) return false;
-            if(user.Password == null) return false;
-            return true;
+            if(user.Name == null) return "Name Not Found";
+            if(user.Email == null) return "Email Not Found";
+            if(user.PhoneNumber == null) return "Phone Not Found";
+            if(user.Password == null) return "Password Not Found";
+            return "Complete";
         }
         public UserDto UploadImage(UserDto userDto)
         {

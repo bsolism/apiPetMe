@@ -22,8 +22,12 @@ namespace apiPetMe.ApplicationServices.UnitOfWork
        public ILoginApplication LoginApplication =>
        new LoginApplication(duow);
        public IUserApplication UserApplication =>
-       new UserApplication(dc, duow, mapper);
+       new UserApplication(dc, duow, mapper);       
        public IRecoveryPassApplication RecoveryPassApplication =>
        new RecoveryPassApplication(dc, duow);
+       public IProfileHouseApplication ProfileHouseApplication =>
+       new ProfileHouseApplication(dc, duow, mapper);
+        public IPetApplication PetApplication =>
+             new PetApplication(dc, duow, mapper);
     }
 }

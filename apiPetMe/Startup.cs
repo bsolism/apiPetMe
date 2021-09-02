@@ -89,6 +89,16 @@ namespace apiPetMe
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "UserImageProfile")),
                 RequestPath = "/api/UserImageProfile"
             });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "HouseImageProfile")),
+                RequestPath = "/api/HouseImageProfile"
+            });
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "ImagePet")),
+                RequestPath = "/api/ImagePet"
+            });
 
             app.UseEndpoints(endpoints =>
             {

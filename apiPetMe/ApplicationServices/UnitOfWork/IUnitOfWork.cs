@@ -7,5 +7,7 @@ namespace apiPetMe.ApplicationServices.UnitOfWork
         ILoginApplication LoginApplication { get; }
         IUserApplication UserApplication { get; }
         IRecoveryPassApplication RecoveryPassApplication { get; }
+        IProfileHouseApplication ProfileHouseApplication { get; }
+        IPetApplication PetApplication { get; }
     }
 }

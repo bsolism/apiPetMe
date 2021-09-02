@@ -9,5 +9,7 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
         IUserDomain UserDomain { get; }
         IRecoveryPassDomain RecoveryPassDomain { get; }
         IEmailSender EmailSender { get; }
+        IProfileHouseDomain ProfileHouseDomain { get; }
+        IPetDomain PetDomain { get; }
     }
 }

@@ -2,21 +2,22 @@
 
 namespace apiPetMe.Migrations
 {
-    public partial class UpdateUserImage : Migration
+    public partial class refactory_rol_user : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Image",
+            migrationBuilder.AddColumn<int>(
+                name: "Rol",
                 table: "Users",
-                type: "nvarchar(max)",
-                nullable: true);
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Image",
+                name: "Rol",
                 table: "Users");
         }
     }

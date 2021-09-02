@@ -40,11 +40,12 @@ namespace apiPetMe.ApplicationServices
             return null;
 
         }
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<ObjectResult> AddUser(User user)
         {
             var isComplete = uow.UserDomain.isComplete(user);
+            if (isComplete != "Complete") return new ObjectResult(isComplete) { StatusCode = 500 };
             var findUser = FindUser(user.Email);
-            if (isComplete && findUser.Result == null)
+            if (findUser.Result == null)
             {
                 var hash = Hash.Hashs(user.Password);
                 user.Password = hash.Password;
@@ -53,17 +54,13 @@ namespace apiPetMe.ApplicationServices
                 await dc.SaveChangesAsync();
                 return new ObjectResult(user);
             }
-            return null;
+            return new ObjectResult("User already exists") {StatusCode= 500 };
         }
-        public async Task<LoginResDto> UpdateUser(int id, UserDto userDto)
+        public async Task<ObjectResult> UpdateUser(int id, UserDto userDto)
         {
             var userMap = await dc.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == userDto.Email);
-            if (id != userDto.UserId)
-            {
-                return null;
-
-            }
-            
+            if (userMap == null) return new ObjectResult("not allowed to change the email") { StatusCode = 500 };
+            if (id != userDto.UserId) return new ObjectResult("Id not Match") { StatusCode = 500 };
             uow.UserDomain.UploadImage(userDto);
             if (userDto.Password != null)
             {
@@ -75,20 +72,20 @@ namespace apiPetMe.ApplicationServices
             userMap = uow.UserDomain.User(userDto, userMap);
             dc.Entry(userMap).State = EntityState.Modified;
             var res = await dc.SaveChangesAsync();
-            if (res == 0) return null;
-            return new LoginResDto {Name = userMap.Name, Token = uow.CreateToken.CreateJWT(userMap) };
+            if (res == 0) return new  ObjectResult("Save failed") {StatusCode= 500};
+            return new ObjectResult(new LoginResDto { Name = userMap.Name, Token = uow.CreateToken.CreateJWT(userMap) }) {StatusCode= 200 };
         }
-        public async Task<IActionResult> DeleteUser(string email)
+        public async Task<ObjectResult> DeleteUser(string email)
         {
             var User = await FindUser(email);
             if (User == null)
             {
-                return null;
+                return new ObjectResult("User not found") {StatusCode= 500 };
             }
            
             dc.Users.Remove(User);
             await dc.SaveChangesAsync();
-            return new ObjectResult(1);
+            return new ObjectResult("User deleted") {StatusCode=200 };
         }
     }
 }
