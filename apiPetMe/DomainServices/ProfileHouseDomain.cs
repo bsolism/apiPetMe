@@ -1,6 +1,7 @@
 ﻿using apiPetMe.Context;
 using apiPetMe.Dto;
 using apiPetMe.Interface.Domain;
+using apiPetMe.Models;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
@@ -48,6 +49,19 @@ namespace apiPetMe.DomainServices
             }
 
             return profileHouseDto;
+        }
+        public ProfileHouse ProfileHouse(ProfileHouseDto profileHouseDto, ProfileHouse profileHouse)
+        {
+            if (profileHouseDto.Name != null) profileHouse.Name = profileHouseDto.Name;
+            if (profileHouseDto.Email != null) profileHouse.Email = profileHouseDto.Email;
+            if (profileHouseDto.City != null) profileHouse.City = profileHouseDto.City;
+            if (profileHouseDto.Image != null) profileHouse.Image = profileHouseDto.Image;
+            if (profileHouseDto.Address != null) profileHouse.Address = profileHouseDto.Address;
+            if (profileHouseDto.Phone != null) profileHouse.Phone = profileHouseDto.Phone;
+            if (profileHouseDto.UserId != 0) profileHouse.UserId = profileHouseDto.UserId;
+
+
+            return profileHouse;
         }
     }
 }

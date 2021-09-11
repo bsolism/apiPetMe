@@ -23,10 +23,10 @@ namespace apiPetMe.Controllers
 
             return uow.ProfileHouseApplication.GetHouse();
         }
-        [HttpGet("{email}")]
-        public Task<ProfileHouse> GetById(string email)
+        [HttpGet("{id}")]
+        public Task<ProfileHouse> GetById(int id)
         {
-            var profileHouse = uow.ProfileHouseApplication.FindProfileHouse(email); 
+            var profileHouse = uow.ProfileHouseApplication.FindProfileHouse(id); 
             return profileHouse;
         }
         [HttpPost]
@@ -39,6 +39,21 @@ namespace apiPetMe.Controllers
                 return BadRequest(data.Value);
             }
             return Ok(data.Value);
+        }
+        [ActionName("GetById")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromForm] ProfileHouseDto profileHouseDto)
+        {
+            var data = await uow.ProfileHouseApplication.Update(id, profileHouseDto);
+            if (data.StatusCode == 500)
+            {
+                return BadRequest(data.Value);
+
+            }
+
+            return CreatedAtAction(nameof(GetById), new {profileHouseDto.ProfileId }, data.Value);
+
+            
         }
     }
 }
