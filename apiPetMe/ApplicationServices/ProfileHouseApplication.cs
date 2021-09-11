@@ -31,7 +31,7 @@ namespace apiPetMe.ApplicationServices
         }
         public async Task<ProfileHouse> FindProfileHouse(int id)
         {
-            var House = await dc.ProfileHouses.Include(x=> x.User).Include(x => x.Pets).FirstOrDefaultAsync(x => x.ProfileHouseId == id);
+            var House = await dc.ProfileHouses.Include(x=> x.User).Include(x=> x.Pets).FirstOrDefaultAsync(x => x.ProfileHouseId == id);
             if (House != null)
             {
                 return House;

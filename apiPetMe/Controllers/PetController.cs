@@ -21,12 +21,19 @@ namespace apiPetMe.Controllers
 
             return uow.PetApplication.Get();
         }
+        [HttpGet("houseid/{id}")]
+        public Task<IEnumerable<Pet>> GetByHouse(int id)
+        {
+
+            return uow.PetApplication.GetByHouseId(id);
+        }
         [HttpGet("{id}")]
         public Task<Pet> GetById(int id)
         {
             var pet = uow.PetApplication.FindById(id);
             return pet;
         }
+       
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] PetDto petDto)
         {

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace apiPetMe.ApplicationServices
@@ -28,6 +29,10 @@ namespace apiPetMe.ApplicationServices
         {
             return await dc.Pets.Include(x => x.ProfileHouse).Include(x => x.PetPhotos).ToListAsync();
         }
+        public async Task<IEnumerable<Pet>> GetByHouseId(int id)
+        {
+            return await dc.Pets.Include(x => x.PetPhotos).Where(x=> x.ProfileHouseId== id).ToListAsync();
+        }
         public async Task<Pet> FindById(int id)
         {
             var pet = await dc.Pets.Include(x => x.ProfileHouse).Include(x => x.PetPhotos).FirstOrDefaultAsync(x => x.PetId == id);
@@ -38,6 +43,7 @@ namespace apiPetMe.ApplicationServices
             return null;
 
         }
+        
         public async Task<ObjectResult> Add(PetDto petDto)
         {
             var Complete = uow.PetDomain.Complete(petDto);
