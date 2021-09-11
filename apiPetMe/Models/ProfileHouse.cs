@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace apiPetMe.Models
 {
@@ -14,5 +15,6 @@ namespace apiPetMe.Models
         public string Image { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public List<Pet> Pets { get; set; }
     }
 }
