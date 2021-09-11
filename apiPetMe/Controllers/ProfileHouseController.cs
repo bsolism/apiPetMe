@@ -29,6 +29,7 @@ namespace apiPetMe.Controllers
             var profileHouse = uow.ProfileHouseApplication.FindProfileHouse(id); 
             return profileHouse;
         }
+
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] ProfileHouseDto profileHouseDto)
         {

@@ -9,7 +9,6 @@ namespace apiPetMe.Interface.Application
     public interface IPetApplication
     {
         Task<IEnumerable<Pet>> Get();
-        Task<IEnumerable<Pet>> GetByHouseId(int id);
         Task<Pet> FindById(int id);
         Task<ObjectResult> Add(PetDto petDto);
     }

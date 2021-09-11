@@ -29,10 +29,7 @@ namespace apiPetMe.ApplicationServices
         {
             return await dc.Pets.Include(x => x.ProfileHouse).Include(x => x.PetPhotos).ToListAsync();
         }
-        public async Task<IEnumerable<Pet>> GetByHouseId(int id)
-        {
-            return await dc.Pets.Include(x => x.PetPhotos).Where(x=> x.ProfileHouseId== id).ToListAsync();
-        }
+     
         public async Task<Pet> FindById(int id)
         {
             var pet = await dc.Pets.Include(x => x.ProfileHouse).Include(x => x.PetPhotos).FirstOrDefaultAsync(x => x.PetId == id);

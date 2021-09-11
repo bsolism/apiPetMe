@@ -15,6 +15,6 @@ namespace apiPetMe.Models
         public string Image { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public List<Pet> Pets { get; set; }
+        public IEnumerable<Pet> Pets { get; set; }
     }
 }
