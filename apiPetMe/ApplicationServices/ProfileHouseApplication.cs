@@ -27,7 +27,7 @@ namespace apiPetMe.ApplicationServices
         }
         public async Task<IEnumerable<ProfileHouse>> GetHouse()
         {
-            return await dc.ProfileHouses.Include(x => x.User).Include(x => x.Pets).ToListAsync();
+            return await dc.ProfileHouses.Include(x => x.User).Include(x => x.Pets).ThenInclude(y => y.PetPhotos).ToListAsync();
         }
    
         public async Task<ProfileHouse> FindProfileHouse(int id)

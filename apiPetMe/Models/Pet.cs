@@ -21,7 +21,8 @@ namespace apiPetMe.Models
         public int ProfileHouseId { get; set; }
         public ProfileHouse ProfileHouse { get; set; }
         public List<PetPhotos> PetPhotos { get; set; }
-        
+        public List<RequestAdoption> RequestAdoptions { get; set; }
+
 
     }
 }
