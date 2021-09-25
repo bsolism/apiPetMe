@@ -9,8 +9,8 @@ using apiPetMe.Context;
 namespace apiPetMe.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210921163309_RequestAdoption")]
-    partial class RequestAdoption
+    [Migration("20210922170443_Relation_RequestAdoption_User")]
+    partial class Relation_RequestAdoption_User
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,11 +171,20 @@ namespace apiPetMe.Migrations
                     b.Property<int>("TimeAlone")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WhatPet")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Why")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isApproved")
+                        .HasColumnType("bit");
 
                     b.HasKey("RequestAdoptionId");
 
@@ -183,7 +192,9 @@ namespace apiPetMe.Migrations
 
                     b.HasIndex("ProfileHouseId");
 
-                    b.ToTable("RequestAdoption", "dbo");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RequestAdoptions", "dbo");
                 });
 
             modelBuilder.Entity("apiPetMe.Models.User", b =>
@@ -266,9 +277,17 @@ namespace apiPetMe.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("apiPetMe.Models.User", "User")
+                        .WithMany("RequestAdoptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Pet");
 
                     b.Navigation("ProfileHouse");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("apiPetMe.Models.Pet", b =>
@@ -282,6 +301,11 @@ namespace apiPetMe.Migrations
                 {
                     b.Navigation("Pets");
 
+                    b.Navigation("RequestAdoptions");
+                });
+
+            modelBuilder.Entity("apiPetMe.Models.User", b =>
+                {
                     b.Navigation("RequestAdoptions");
                 });
 #pragma warning restore 612, 618

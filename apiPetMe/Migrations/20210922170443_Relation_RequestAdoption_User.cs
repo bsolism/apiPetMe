@@ -2,7 +2,7 @@
 
 namespace apiPetMe.Migrations
 {
-    public partial class RequestAdoption : Migration
+    public partial class Relation_RequestAdoption_User : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,7 +10,7 @@ namespace apiPetMe.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
-                name: "RequestAdoption",
+                name: "RequestAdoptions",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -26,7 +26,10 @@ namespace apiPetMe.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PetId = table.Column<int>(type: "int", nullable: false),
+                    isApproved = table.Column<bool>(type: "bit", nullable: false),
+                    isActive = table.Column<bool>(type: "bit", nullable: false),
                     ProfileHouseId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TimeAlone = table.Column<int>(type: "int", nullable: false),
                     WhatPet = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -34,36 +37,47 @@ namespace apiPetMe.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RequestAdoption", x => x.RequestAdoptionId);
+                    table.PrimaryKey("PK_RequestAdoptions", x => x.RequestAdoptionId);
                     table.ForeignKey(
-                        name: "FK_RequestAdoption_Pets_PetId",
+                        name: "FK_RequestAdoptions_Pets_PetId",
                         column: x => x.PetId,
                         principalTable: "Pets",
                         principalColumn: "PetId");
                     table.ForeignKey(
-                        name: "FK_RequestAdoption_ProfileHouses_ProfileHouseId",
+                        name: "FK_RequestAdoptions_ProfileHouses_ProfileHouseId",
                         column: x => x.ProfileHouseId,
                         principalTable: "ProfileHouses",
                         principalColumn: "ProfileHouseId");
+                    table.ForeignKey(
+                        name: "FK_RequestAdoptions_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequestAdoption_PetId",
+                name: "IX_RequestAdoptions_PetId",
                 schema: "dbo",
-                table: "RequestAdoption",
+                table: "RequestAdoptions",
                 column: "PetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RequestAdoption_ProfileHouseId",
+                name: "IX_RequestAdoptions_ProfileHouseId",
                 schema: "dbo",
-                table: "RequestAdoption",
+                table: "RequestAdoptions",
                 column: "ProfileHouseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestAdoptions_UserId",
+                schema: "dbo",
+                table: "RequestAdoptions",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RequestAdoption",
+                name: "RequestAdoptions",
                 schema: "dbo");
         }
     }

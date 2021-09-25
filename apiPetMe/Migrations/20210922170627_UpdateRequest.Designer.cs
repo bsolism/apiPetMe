@@ -9,8 +9,8 @@ using apiPetMe.Context;
 namespace apiPetMe.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210921193735_AddFieldRequestAdoption")]
-    partial class AddFieldRequestAdoption
+    [Migration("20210922170627_UpdateRequest")]
+    partial class UpdateRequest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,9 @@ namespace apiPetMe.Migrations
                     b.Property<int>("TimeAlone")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WhatPet")
                         .HasColumnType("nvarchar(max)");
 
@@ -188,6 +191,8 @@ namespace apiPetMe.Migrations
                     b.HasIndex("PetId");
 
                     b.HasIndex("ProfileHouseId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RequestAdoptions", "dbo");
                 });
@@ -272,9 +277,17 @@ namespace apiPetMe.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("apiPetMe.Models.User", "User")
+                        .WithMany("RequestAdoptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Pet");
 
                     b.Navigation("ProfileHouse");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("apiPetMe.Models.Pet", b =>
@@ -288,6 +301,11 @@ namespace apiPetMe.Migrations
                 {
                     b.Navigation("Pets");
 
+                    b.Navigation("RequestAdoptions");
+                });
+
+            modelBuilder.Entity("apiPetMe.Models.User", b =>
+                {
                     b.Navigation("RequestAdoptions");
                 });
 #pragma warning restore 612, 618

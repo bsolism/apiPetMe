@@ -47,7 +47,19 @@ namespace apiPetMe.ApplicationServices
             await dc.SaveChangesAsync();
             return new ObjectResult(requestAdoption) { StatusCode = 200 };
         }
-        
+        public async Task<ObjectResult> Update(int id, RequestAdoption requestAdoption)
+        {
+            var data = await dc.RequestAdoptions.AsNoTracking().FirstOrDefaultAsync(x => x.RequestAdoptionId == requestAdoption.RequestAdoptionId);
+            if (id != requestAdoption.RequestAdoptionId) return new ObjectResult("Id not Match") { StatusCode = 500 };
+
+            data = uow.RequestAdoptionDomain.RequestAdoption(requestAdoption, data);
+            dc.Entry(data).State = EntityState.Modified;
+            var res = await dc.SaveChangesAsync();
+            if (res == 0) return new ObjectResult("Save failed") { StatusCode = 500 };
+            data = await dc.RequestAdoptions.AsNoTracking().Include(x => x.Pet).FirstOrDefaultAsync(x => x.RequestAdoptionId == id);
+            return new ObjectResult(data) { StatusCode = 200 };
+        }
+
 
     }
 }

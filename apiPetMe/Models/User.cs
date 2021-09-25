@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace apiPetMe.Models
 {
@@ -13,5 +14,6 @@ namespace apiPetMe.Models
         public int Rol { get; set; }
         public string Password { get; set; }
         public string Sal { get; set; }
+        public List<RequestAdoption> RequestAdoptions { get; set; }
     }
 }

@@ -2,20 +2,12 @@
 
 namespace apiPetMe.Migrations
 {
-    public partial class AddFieldRequestAdoption : Migration
+    public partial class AddfieldisRejectedrequest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<bool>(
-                name: "isActive",
-                schema: "dbo",
-                table: "RequestAdoptions",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "isApproved",
+                name: "isRejected",
                 schema: "dbo",
                 table: "RequestAdoptions",
                 type: "bit",
@@ -26,12 +18,7 @@ namespace apiPetMe.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "isActive",
-                schema: "dbo",
-                table: "RequestAdoptions");
-
-            migrationBuilder.DropColumn(
-                name: "isApproved",
+                name: "isRejected",
                 schema: "dbo",
                 table: "RequestAdoptions");
         }

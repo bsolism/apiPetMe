@@ -20,9 +20,12 @@ namespace apiPetMe.Models
         public int PetId { get; set; }
         public bool isApproved { get; set; }
         public bool isActive { get; set; }
+        public bool isRejected { get; set; }
         public Pet Pet { get; set; }
         public int ProfileHouseId { get; set; }
         public ProfileHouse ProfileHouse { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public string Province { get; set; }
         public int TimeAlone { get; set; }
         public string WhatPet { get; set; }

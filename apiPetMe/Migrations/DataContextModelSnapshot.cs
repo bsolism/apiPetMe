@@ -169,6 +169,9 @@ namespace apiPetMe.Migrations
                     b.Property<int>("TimeAlone")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WhatPet")
                         .HasColumnType("nvarchar(max)");
 
@@ -181,11 +184,16 @@ namespace apiPetMe.Migrations
                     b.Property<bool>("isApproved")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("isRejected")
+                        .HasColumnType("bit");
+
                     b.HasKey("RequestAdoptionId");
 
                     b.HasIndex("PetId");
 
                     b.HasIndex("ProfileHouseId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RequestAdoptions", "dbo");
                 });
@@ -270,9 +278,17 @@ namespace apiPetMe.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("apiPetMe.Models.User", "User")
+                        .WithMany("RequestAdoptions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Pet");
 
                     b.Navigation("ProfileHouse");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("apiPetMe.Models.Pet", b =>
@@ -286,6 +302,11 @@ namespace apiPetMe.Migrations
                 {
                     b.Navigation("Pets");
 
+                    b.Navigation("RequestAdoptions");
+                });
+
+            modelBuilder.Entity("apiPetMe.Models.User", b =>
+                {
                     b.Navigation("RequestAdoptions");
                 });
 #pragma warning restore 612, 618

@@ -43,5 +43,20 @@ namespace apiPetMe.Controllers
             }
             return Ok(data.Value);
         }
+        [ActionName("GetById")]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromForm] RequestAdoption requestAdoption)
+        {
+            var data = await uow.RequestAdoptionApplication.Update(id, requestAdoption);
+            if (data.StatusCode == 500)
+            {
+                return BadRequest(data.Value);
+
+            }
+
+            return CreatedAtAction(nameof(GetById), new { requestAdoption.RequestAdoptionId }, data.Value);
+
+
+        }
     }
 }

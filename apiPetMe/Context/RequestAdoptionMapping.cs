@@ -23,6 +23,7 @@ namespace apiPetMe.Context
             builder.Property(e => e.Name).HasColumnType("nvarchar(max)");
             builder.Property(e => e.Phone).HasColumnType("nvarchar(max)");
             builder.Property(e => e.ProfileHouseId).HasColumnType("int").IsRequired();
+            builder.Property(e => e.UserId).HasColumnType("int").IsRequired();
             builder.Property(e => e.PetId).HasColumnType("int").IsRequired();
             builder.Property(e => e.Province).HasColumnType("nvarchar(max)");
             builder.Property(e => e.TimeAlone).HasColumnType("int").IsRequired();
@@ -37,9 +38,13 @@ namespace apiPetMe.Context
                 .WithMany(x => x.RequestAdoptions)
                 .HasForeignKey(x => x.ProfileHouseId)
                 .OnDelete(DeleteBehavior.NoAction);
+            builder.HasOne(x => x.User)
+               .WithMany(x => x.RequestAdoptions)
+               .HasForeignKey(x => x.UserId)
+               .OnDelete(DeleteBehavior.NoAction);
 
 
-            
+
         }
     }
 }

@@ -28,11 +28,18 @@ namespace apiPetMe.ApplicationServices
         }
         public async Task<IEnumerable<User>> GetUser()
         {
-            return await dc.Users.ToListAsync();
+            return await dc.Users.Include(x=> x.RequestAdoptions).ToListAsync();
         }
         public async Task<User> FindUser(string email)
         {
-            var User = await dc.Users.FirstOrDefaultAsync(x => x.Email == email);
+            var User = await dc.Users
+                .Include(x=> x.RequestAdoptions)
+                .ThenInclude(x=> x.Pet)
+                .ThenInclude(x=> x.PetPhotos)
+                .Include(x=> x.RequestAdoptions)
+                .ThenInclude(x=> x.Pet)
+                .ThenInclude(x=> x.ProfileHouse)
+                .FirstOrDefaultAsync(x => x.Email == email);
             if (User != null)
             {
                 return User;
