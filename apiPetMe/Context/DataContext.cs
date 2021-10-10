@@ -15,8 +15,9 @@ namespace apiPetMe.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=SQL5105.site4now.net;Initial Catalog=db_a782b2_petme;User Id=db_a782b2_petme_admin;Password=petme.2021");
-            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-2NG55CV\SQLEXPRESS;Initial Catalog=PetMeDb; Trusted_Connection=true");
+            //optionsBuilder.UseSqlServer(@"Data Source=petme.database.windows.net;Initial Catalog=PetMe;User Id=petme;Password=app.2021");
+            //optionsBuilder.UseSqlServer(@"Data Source=SQL5105.site4now.net;Initial Catalog=db_a782b2_petme;User Id=db_a782b2_petme_admin;Password=petme.2021");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-2NG55CV\SQLEXPRESS;Initial Catalog=PetMeDb; Trusted_Connection=true");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

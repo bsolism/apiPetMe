@@ -12,7 +12,7 @@ namespace apiPetMe.Context
         {
             builder.ToTable("RequestAdoptions", "dbo");
             builder.HasKey(q => q.RequestAdoptionId);
-            builder.Property(e => e.RequestAdoptionId).IsRequired().UseIdentityColumn();
+            builder.Property(e => e.RequestAdoptionId).UseIdentityColumn().ValueGeneratedOnAdd();
             builder.Property(e => e.Address).HasColumnType("nvarchar(max)");
             builder.Property(e => e.City).HasColumnType("nvarchar(max)");
             builder.Property(e => e.Comentary).HasColumnType("nvarchar(max)");

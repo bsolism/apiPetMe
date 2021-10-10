@@ -45,7 +45,7 @@ namespace apiPetMe.Controllers
         }
         [ActionName("GetById")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromForm] RequestAdoption requestAdoption)
+        public async Task<IActionResult> Update(int id, RequestAdoption requestAdoption)
         {
             var data = await uow.RequestAdoptionApplication.Update(id, requestAdoption);
             if (data.StatusCode == 500)
