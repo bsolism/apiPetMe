@@ -29,7 +29,12 @@ namespace apiPetMe.ApplicationServices
         {
             return await dc.ProfileHouses.Include(x => x.User).Include(x => x.Pets).ThenInclude(y => y.PetPhotos).ToListAsync();
         }
-   
+
+        public async Task<IEnumerable<ProfileHouse>> GetHouseByUserId(int id)
+        {
+            return await dc.ProfileHouses.Include(x => x.User).Include(x => x.Pets).ThenInclude(y => y.PetPhotos).Where(x=> x.UserId==id).ToListAsync();
+        }
+
         public async Task<ProfileHouse> FindProfileHouse(int id)
         {
             var House = await dc.ProfileHouses.Include(x=> x.User).Include(x=> x.Pets).ThenInclude(y=> y.PetPhotos).FirstOrDefaultAsync(x => x.ProfileHouseId == id);
@@ -63,6 +68,15 @@ namespace apiPetMe.ApplicationServices
             if (res == 0) return new ObjectResult("Save failed") { StatusCode = 500 };
             profile = await dc.ProfileHouses.AsNoTracking().Include(x=> x.User).FirstOrDefaultAsync(x => x.ProfileHouseId == profileHouseDto.ProfileId);
             return new ObjectResult(profile) { StatusCode = 200 };
+        }
+
+        public async Task<ObjectResult> Delete(int id)
+        {
+            var data = await dc.ProfileHouses.AsNoTracking().FirstOrDefaultAsync(x => x.ProfileHouseId == id);
+            if (data == null) return new ObjectResult("item no found") { StatusCode = 500 };
+            dc.ProfileHouses.Remove(data);
+            await dc.SaveChangesAsync();
+            return new ObjectResult("Item deleted") { StatusCode = 200 };
         }
     }
 }

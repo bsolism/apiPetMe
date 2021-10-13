@@ -1,6 +1,8 @@
 ﻿
 
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace apiPetMe.Models
 {
@@ -30,6 +32,7 @@ namespace apiPetMe.Models
         public int TimeAlone { get; set; }
         public string WhatPet { get; set; }
         public string Why { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }

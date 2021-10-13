@@ -9,7 +9,8 @@ namespace apiPetMe.Interface.Application
     {
         Task<IEnumerable<RequestAdoption>> Get();
         Task<IEnumerable<RequestAdoption>> FindByHouse(int id);
-        Task<RequestAdoption> FindById(int id);
+        Task<IEnumerable<RequestAdoption>> FindByUserId(int id);
+        Task<RequestAdoption> FindById(int id);        
         Task<ObjectResult> Add(RequestAdoption requestAdoption);
         Task<ObjectResult> Update(int id, RequestAdoption requestAdoption);
     }

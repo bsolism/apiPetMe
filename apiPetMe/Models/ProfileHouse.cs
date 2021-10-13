@@ -13,6 +13,10 @@ namespace apiPetMe.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Image { get; set; }
+        public string Rtn { get; set; }
+        public string AccountBank { get; set; }
+        public string TypeAccount { get; set; }
+        public string BankName { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
         public IEnumerable<Pet> Pets { get; set; }

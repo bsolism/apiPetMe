@@ -27,6 +27,7 @@ namespace apiPetMe.DomainServices
             if (userDto.Email != null) user.Email = userDto.Email;
             if (userDto.PhoneNumber != null) user.PhoneNumber = userDto.PhoneNumber;
             if (userDto.Image != null) user.Image = userDto.Image;
+            if (userDto.Rol != 0) user.Rol = userDto.Rol;
             if (userDto.Password != null) user.Password = userDto.Password;
             if (userDto.Sal != null) user.Sal = userDto.Sal;
 

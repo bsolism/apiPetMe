@@ -32,6 +32,12 @@ namespace apiPetMe.Controllers
             return uow.RequestAdoptionApplication.FindById(id);
            
         }
+        [HttpGet("user/{id}")]
+        public Task<IEnumerable<RequestAdoption>> GetByUserId(int id)
+        {
+            return uow.RequestAdoptionApplication.FindByUserId(id);
+
+        }
         [HttpPost]
         public async Task<IActionResult> Add(RequestAdoption requestAdoption)
         {

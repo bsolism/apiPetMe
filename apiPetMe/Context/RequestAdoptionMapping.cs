@@ -29,6 +29,7 @@ namespace apiPetMe.Context
             builder.Property(e => e.TimeAlone).HasColumnType("int").IsRequired();
             builder.Property(e => e.WhatPet).HasColumnType("nvarchar(max)");
             builder.Property(e => e.Why).HasColumnType("nvarchar(max)");
+            builder.Property(e => e.Date).HasDefaultValueSql("getdate()");
 
             builder.HasOne(x => x.Pet)
                 .WithMany(x => x.RequestAdoptions)

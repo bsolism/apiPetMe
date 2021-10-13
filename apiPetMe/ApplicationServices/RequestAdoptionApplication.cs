@@ -38,7 +38,16 @@ namespace apiPetMe.ApplicationServices
             }
             return null;
         }
-      
+        public async Task<IEnumerable<RequestAdoption>> FindByUserId(int id)
+        {
+            var data = await dc.RequestAdoptions.Include(x => x.Pet).ThenInclude(x=> x.PetPhotos).Where(x => x.UserId == id).ToListAsync();
+            if (data != null)
+            {
+                return data;
+            }
+            return null;
+        }
+
         public async Task<ObjectResult> Add(RequestAdoption requestAdoption)
         {
             var isComplete = uow.RequestAdoptionDomain.isComplete(requestAdoption);

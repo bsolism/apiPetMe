@@ -23,6 +23,12 @@ namespace apiPetMe.Controllers
 
             return uow.ProfileHouseApplication.GetHouse();
         }
+        [HttpGet("user/{id}")]
+        public Task<IEnumerable<ProfileHouse>> GetUserByUserId(int id)
+        {
+
+            return uow.ProfileHouseApplication.GetHouseByUserId(id);
+        }
         [HttpGet("{id}")]
         public Task<ProfileHouse> GetById(int id)
         {
@@ -55,6 +61,16 @@ namespace apiPetMe.Controllers
             return CreatedAtAction(nameof(GetById), new {profileHouseDto.ProfileId }, data.Value);
 
             
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Detele(int id)
+        {
+            var data =await uow.ProfileHouseApplication.Delete(id);
+            if(data.StatusCode== 500)
+            {
+                return BadRequest(data.Value);
+            }
+            return Ok(data.Value);
         }
     }
 }

@@ -57,6 +57,7 @@ namespace apiPetMe.ApplicationServices
                 var hash = Hash.Hashs(user.Password);
                 user.Password = hash.Password;
                 user.Sal = hash.Salt;
+                user.Rol = 3;
                 dc.Users.Add(user);
                 await dc.SaveChangesAsync();
                 return new ObjectResult(user);

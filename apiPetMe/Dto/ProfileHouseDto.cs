@@ -10,6 +10,10 @@ namespace apiPetMe.Dto
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public string Rtn { get; set; }
+        public string AccountBank { get; set; }
+        public string TypeAccount { get; set; }
+        public string BankName { get; set; }
         public string Image { get; set; }
         public int UserId { get; set; }
         public IFormFile File { get; set; }
