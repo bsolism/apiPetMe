@@ -20,6 +20,7 @@ namespace apiPetMe.Dto
         public string LifeHistory { get; set; }
         public bool isAdoptable { get; set; }
         public int ProfileHouseId { get; set; }
+        public DateTime DataCreated { get; set; }
         public List<IFormFile> File { get; set; }
         
     }

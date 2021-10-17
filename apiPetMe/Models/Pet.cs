@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace apiPetMe.Models
 {
@@ -19,6 +21,8 @@ namespace apiPetMe.Models
         public string LifeHistory { get; set; }
         public bool isAdoptable { get; set; }
         public int ProfileHouseId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime DateCreated { get; set; }
         public ProfileHouse ProfileHouse { get; set; }
         public List<PetPhotos> PetPhotos { get; set; }
         public List<RequestAdoption> RequestAdoptions { get; set; }

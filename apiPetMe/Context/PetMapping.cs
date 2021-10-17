@@ -9,7 +9,8 @@ namespace apiPetMe.Context
         public void Configure(EntityTypeBuilder<Pet> builder)
         {
             builder.ToTable("Pet", "dbo");
-            
+
+            builder.Property(e => e.DateCreated).HasDefaultValueSql("getdate()");
 
 
         }
