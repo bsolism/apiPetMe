@@ -38,9 +38,17 @@ namespace apiPetMe.ApplicationServices
                 return pet;
             }
             return null;
-
         }
-        
+        public async Task<IEnumerable<Pet>> FindByHouseId(int id)
+        {
+            var pet = await dc.Pets.Include(x => x.PetPhotos).Where(x=> x.ProfileHouseId== id).ToListAsync();
+            if (pet != null)
+            {
+                return pet;
+            }
+            return null;
+        }
+
         public async Task<ObjectResult> Add(PetDto petDto)
         {
             var Complete = uow.PetDomain.Complete(petDto);
