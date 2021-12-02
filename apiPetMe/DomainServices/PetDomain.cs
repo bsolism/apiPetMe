@@ -5,6 +5,7 @@ using apiPetMe.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace apiPetMe.DomainServices
@@ -52,6 +53,77 @@ namespace apiPetMe.DomainServices
             }
 
             return guidImagen;
+        }
+        public Pet Pet(PetDto petDto, Pet pet)
+        {
+            pet.Name = petDto.Name;
+            pet.Category = petDto.Category;
+            pet.Description = petDto.Description;
+            pet.Old = petDto.Old;
+            pet.Weight = petDto.Weight;
+            pet.Height = petDto.Height;
+            pet.Sex = petDto.Sex;
+            pet.Color = petDto.Color;
+            pet.ClinicHistory = petDto.ClinicHistory;
+            pet.LifeHistory = petDto.LifeHistory;
+            pet.isAdoptable = petDto.isAdoptable;
+            pet.ProfileHouseId = petDto.ProfileHouseId;
+
+
+           return pet;
+        }
+        public bool updateImage(int id,PetDto petDto, List<PetPhotos> petPhotos)
+        {
+            foreach (var photoDto in petDto.File)
+            {
+                var Add = true;
+                foreach (var photo in petPhotos)
+                {
+                    if (photoDto.FileName == photo.Image)
+                    {
+                        Add = false;
+                        break;
+                    }
+                }
+                if (Add)
+                {
+                    addImage(photoDto, id);
+                }
+                Add = true;
+            }
+            foreach (var Photo in petPhotos)
+            {
+                var delete = true;
+                foreach (var photoDto in petDto.File)
+                {
+                    if (Photo.Image == photoDto.FileName)
+                    {
+                        delete = false;
+                        break;
+                    }
+
+                }
+                if (delete)
+                {
+                    deleteImage(Photo);
+                }
+
+                delete = true;
+            }
+
+            return true;
+        }
+        private void addImage(IFormFile photoDto, int id)
+        {
+            var image = UploadImage(photoDto);
+            var petPhotoNew = new PetPhotos { Image = image, PetId = id };
+            dc.PetPhotos.Add(petPhotoNew);
+            
+        }
+        private void deleteImage(PetPhotos Photo)
+        {
+            dc.PetPhotos.Remove(Photo);
+            
         }
     }
 }

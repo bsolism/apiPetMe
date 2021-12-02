@@ -45,5 +45,17 @@ namespace apiPetMe.Controllers
             }
             return Ok(data.Value);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromForm] PetDto petDto)
+        {
+            var user = await uow.PetApplication.Update(id, petDto);
+            if (user.StatusCode == 500)
+            {
+                return BadRequest(user.Value);
+
+            }
+
+            return Ok(user.Value);
+        }
     }
 }

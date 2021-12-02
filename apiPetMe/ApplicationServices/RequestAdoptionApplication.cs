@@ -26,7 +26,7 @@ namespace apiPetMe.ApplicationServices
         }
         public async Task<IEnumerable<RequestAdoption>> FindByHouse(int id)
         {
-            return await dc.RequestAdoptions.Include(x => x.Pet).Where(x => x.ProfileHouseId == id).ToListAsync();
+            return await dc.RequestAdoptions.Include(x => x.Pet).ThenInclude(x=> x.PetPhotos).Where(x => x.ProfileHouseId == id).ToListAsync();
             
         }
         public async Task<RequestAdoption> FindById(int id)

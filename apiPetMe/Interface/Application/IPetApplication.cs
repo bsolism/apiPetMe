@@ -12,5 +12,6 @@ namespace apiPetMe.Interface.Application
         Task<IEnumerable<Pet>> FindByHouseId(int id);
         Task<Pet> FindById(int id);
         Task<ObjectResult> Add(PetDto petDto);
+        Task<ObjectResult> Update(int id, PetDto petDto);
     }
 }

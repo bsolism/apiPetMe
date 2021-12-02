@@ -69,5 +69,19 @@ namespace apiPetMe.ApplicationServices
             
             return new ObjectResult(PetMap);
         }
+        public async Task<ObjectResult> Update(int id, PetDto petDto)
+        {
+            var petMap = await dc.Pets.AsNoTracking().Include(x=> x.PetPhotos).FirstOrDefaultAsync(x => x.PetId == id);
+            if (petMap == null) return new ObjectResult("not found") { StatusCode = 500 };
+            var petPhotos = await dc.PetPhotos.AsNoTracking().Where(x => x.PetId == id).ToListAsync();
+            var updatePhoto= uow.PetDomain.updateImage(id,petDto,petPhotos);
+            if(!updatePhoto) return new ObjectResult("Error Upload Image") { StatusCode=500};
+            petMap = uow.PetDomain.Pet(petDto, petMap);
+            dc.Entry(petMap).State = EntityState.Modified;
+            var res = await dc.SaveChangesAsync();
+            if (res == 0) return new ObjectResult("Save failed") { StatusCode = 500 };
+            return new ObjectResult(petMap) { StatusCode = 200 };
+            
+        }
     }
 }
