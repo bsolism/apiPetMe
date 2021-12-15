@@ -9,6 +9,9 @@ namespace apiPetMe.Helper
         public Mapper()
         {
             CreateMap<UserDto, User>();
+            CreateMap<ProfileHouseDto, ProfileHouse>();
+            CreateMap<PetPhotosDto, PetPhotos>();
+            CreateMap<PetDto, Pet>();
         }
     }
 }

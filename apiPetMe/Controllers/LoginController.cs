@@ -16,13 +16,13 @@ namespace apiPetMe.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginReqDto loginReqDto)
-        {
+         {
             var login = await uow.LoginApplication.Login(loginReqDto);
-            if(login== null)
+            if(login.StatusCode == 500)
             {
-                return BadRequest("Usuario o Password Incorrectos");
+                return BadRequest(login.Value);
             }
-            return Ok(login);
+            return Ok(login.Value);
         }
     }
 }

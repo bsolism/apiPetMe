@@ -36,6 +36,14 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
         new RecoveryPassDomain();
         public IEmailSender EmailSender =>
         new EmailSender(options);
+        public IProfileHouseDomain ProfileHouseDomain =>
+            new ProfileHouseDomain(dc, environment);
+        public IPetDomain PetDomain =>
+            new PetDomain(dc, environment);
+        public IRequestAdoptionDomain RequestAdoptionDomain =>
+            new RequestAdoptionDomain(dc);
+        public IDonationDomain DonationDomain =>
+            new DonationDomain(dc);
 
     }
 }

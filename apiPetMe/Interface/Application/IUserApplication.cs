@@ -12,9 +12,9 @@ namespace apiPetMe.Interface.Application
     {
         Task<IEnumerable<User>> GetUser();
         Task<User> FindUser(string email);
-        Task<IActionResult> AddUser(User User);
-        Task<LoginResDto> UpdateUser(int id, UserDto userDto);
-        Task<IActionResult> DeleteUser(string email);
+        Task<ObjectResult> AddUser(User User);
+        Task<ObjectResult> UpdateUser(int id, UserDto userDto);
+        Task<ObjectResult> DeleteUser(string email);
 
     }
 }

@@ -33,33 +33,33 @@ namespace apiPetMe.Controllers
         public async Task<IActionResult> AddUser(User user)
         {
             var data = await uow.UserApplication.AddUser(user);
-            if (data == null)
+            if (data.StatusCode == 500)
             {
-                return BadRequest();
+                return BadRequest(data.Value);
             }
-            return Ok(data);
+            return Ok(data.Value);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromForm] UserDto userDto)
         {
             var user = await uow.UserApplication.UpdateUser(id, userDto);
-            if (user == null)
+            if (user.StatusCode == 500)
             {
-                return BadRequest();
+                return BadRequest(user.Value);
 
             }
             
-            return Ok(user);
+            return Ok(user.Value);
         }
         [HttpDelete("{email}")]
         public async Task<IActionResult> DeleteUser(string email)
         {
             var User = await uow.UserApplication.DeleteUser(email);
-            if (User == null)
+            if (User.StatusCode == 500)
             {
-                return BadRequest();
+                return BadRequest(User.Value);
             }
-            return StatusCode(201);
+            return StatusCode(200);
         }
 
     }

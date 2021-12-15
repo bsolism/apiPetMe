@@ -40,6 +40,7 @@ namespace apiPetMe.DomainServices
                 new Claim("name", user.Name),
                 new Claim("userId", user.UserId.ToString()),
                 new Claim("email", user.Email),
+                new Claim("rol", user.Rol.ToString()),
                 new Claim("password", user.Password),
                 new Claim("phoneNumber", user.PhoneNumber),
                 new Claim("image", (user.Image==null)?"null": user.Image)

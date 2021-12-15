@@ -27,20 +27,21 @@ namespace apiPetMe.DomainServices
             if (userDto.Email != null) user.Email = userDto.Email;
             if (userDto.PhoneNumber != null) user.PhoneNumber = userDto.PhoneNumber;
             if (userDto.Image != null) user.Image = userDto.Image;
+            if (userDto.Rol != 0) user.Rol = userDto.Rol;
             if (userDto.Password != null) user.Password = userDto.Password;
             if (userDto.Sal != null) user.Sal = userDto.Sal;
 
 
             return user;
         }
-        public bool isComplete(User user)
+        public string isComplete(User user)
         {
             
-            if(user.Name == null) return false;
-            if(user.Email == null) return false;
-            if(user.PhoneNumber == null) return false;
-            if(user.Password == null) return false;
-            return true;
+            if(user.Name == null) return "Name Not Found";
+            if(user.Email == null) return "Email Not Found";
+            if(user.PhoneNumber == null) return "Phone Not Found";
+            if(user.Password == null) return "Password Not Found";
+            return "Complete";
         }
         public UserDto UploadImage(UserDto userDto)
         {

@@ -19,11 +19,19 @@ namespace apiPetMe.ApplicationServices.UnitOfWork
             this.duow = duow;
             this.mapper = mapper;
         }
-       public ILoginApplication LoginApplication =>
-       new LoginApplication(duow);
-       public IUserApplication UserApplication =>
-       new UserApplication(dc, duow, mapper);
-       public IRecoveryPassApplication RecoveryPassApplication =>
-       new RecoveryPassApplication(dc, duow);
+        public ILoginApplication LoginApplication =>
+             new LoginApplication(duow);
+        public IUserApplication UserApplication =>
+             new UserApplication(dc, duow, mapper);
+        public IRecoveryPassApplication RecoveryPassApplication =>
+             new RecoveryPassApplication(dc, duow);
+        public IProfileHouseApplication ProfileHouseApplication =>
+             new ProfileHouseApplication(dc, duow, mapper);
+        public IPetApplication PetApplication =>
+              new PetApplication(dc, duow, mapper);
+        public IRequestAdoptionApplication RequestAdoptionApplication =>
+             new RequestAdoptionApplication(dc, duow);
+        public IDonationApplication DonationApplication =>
+            new DonationApplication(dc, duow);
     }
 }
