@@ -12,5 +12,6 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
         IProfileHouseDomain ProfileHouseDomain { get; }
         IPetDomain PetDomain { get; }
         IRequestAdoptionDomain RequestAdoptionDomain { get; }
+        IDonationDomain DonationDomain { get; }
     }
 }

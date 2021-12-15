@@ -19,6 +19,7 @@ namespace apiPetMe.Models
         public string BankName { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public IEnumerable<Donation> Donations { get; set; }
         public IEnumerable<Pet> Pets { get; set; }
         public List<RequestAdoption> RequestAdoptions { get; set; }
     }

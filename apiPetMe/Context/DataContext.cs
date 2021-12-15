@@ -11,6 +11,7 @@ namespace apiPetMe.Context
         public DbSet<Pet> Pets { get; set; }
         public DbSet<PetPhotos> PetPhotos { get; set; }
         public DbSet<RequestAdoption> RequestAdoptions { get; set; }
+        public DbSet<Donation> Donations { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,6 +23,7 @@ namespace apiPetMe.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new RequestAdoptionMapping());
+            modelBuilder.ApplyConfiguration(new DonationMapping());
             base.OnModelCreating(modelBuilder);
         }
 

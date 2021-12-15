@@ -42,6 +42,8 @@ namespace apiPetMe.DomainServices.UnitOfWorkDomain
             new PetDomain(dc, environment);
         public IRequestAdoptionDomain RequestAdoptionDomain =>
             new RequestAdoptionDomain(dc);
+        public IDonationDomain DonationDomain =>
+            new DonationDomain(dc);
 
     }
 }

@@ -25,6 +25,7 @@ namespace apiPetMe.Models
         public DateTime DateCreated { get; set; }
         public ProfileHouse ProfileHouse { get; set; }
         public List<PetPhotos> PetPhotos { get; set; }
+        public List<Donation> Donations { get; set; }
         public List<RequestAdoption> RequestAdoptions { get; set; }
 
 

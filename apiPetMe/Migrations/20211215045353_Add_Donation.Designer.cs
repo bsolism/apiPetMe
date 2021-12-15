@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using apiPetMe.Context;
 
 namespace apiPetMe.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211215045353_Add_Donation")]
+    partial class Add_Donation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,14 +39,8 @@ namespace apiPetMe.Migrations
                     b.Property<int>("PetId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Prefix")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ProfileHouseId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Suscription")
-                        .HasColumnType("bit");
 
                     b.HasKey("DonationId");
 

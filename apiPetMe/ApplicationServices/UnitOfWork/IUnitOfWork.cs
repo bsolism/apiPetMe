@@ -10,5 +10,6 @@ namespace apiPetMe.ApplicationServices.UnitOfWork
         IProfileHouseApplication ProfileHouseApplication { get; }
         IPetApplication PetApplication { get; }
         IRequestAdoptionApplication RequestAdoptionApplication { get; }
+        IDonationApplication DonationApplication { get; }
     }
 }
