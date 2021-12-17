@@ -44,12 +44,23 @@ namespace apiPetMe.ApplicationServices
             }
             return null;
         }
+        public async Task<ProfileHouse>FindRefugeByEmail(string email)
+        {
+            var house = await dc.ProfileHouses.Include(x => x.User).Include(x => x.Pets).ThenInclude(y => y.PetPhotos).FirstOrDefaultAsync(x => x.Email == email);
+            if (house != null)
+            {
+                return house;
+            }
+            return null;
+        }
         public async Task<ObjectResult> AddHouse(ProfileHouseDto profileHouseDto)
         {
             var isComplete =  uow.ProfileHouseDomain.isComplete(profileHouseDto);
             if (isComplete != "Complete") return new ObjectResult(isComplete) {StatusCode=500 };
             var findProfileHouse = await FindProfileHouse(profileHouseDto.ProfileId);
             if (findProfileHouse != null) return new ObjectResult("Perfil ya existe") {StatusCode= 500 };
+            var findRefugeByEmail = await FindRefugeByEmail(profileHouseDto.Email);
+            if (findRefugeByEmail != null) return new ObjectResult("El Email ya está registrado") { StatusCode = 500 };
             uow.ProfileHouseDomain.UploadImage(profileHouseDto);
             var profileHouseMap = mapper.Map<ProfileHouse>(profileHouseDto);
             dc.ProfileHouses.Add(profileHouseMap);
