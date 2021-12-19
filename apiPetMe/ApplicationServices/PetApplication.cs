@@ -27,7 +27,10 @@ namespace apiPetMe.ApplicationServices
         }
         public async Task<IEnumerable<Pet>> Get()
         {
-            return await dc.Pets.Include(x => x.ProfileHouse).Include(x => x.PetPhotos).ToListAsync();
+            return await dc.Pets.Include(x => x.ProfileHouse)
+                .Include(x => x.PetPhotos)
+                .OrderByDescending(x=> x.PetId)
+                .ToListAsync();
         }
      
         public async Task<Pet> FindById(int id)
@@ -41,7 +44,10 @@ namespace apiPetMe.ApplicationServices
         }
         public async Task<IEnumerable<Pet>> FindByHouseId(int id)
         {
-            var pet = await dc.Pets.Include(x => x.PetPhotos).Where(x=> x.ProfileHouseId== id).ToListAsync();
+            var pet = await dc.Pets.Include(x => x.PetPhotos)
+                .Where(x=> x.ProfileHouseId== id)
+                .OrderByDescending(x=> x.PetId)
+                .ToListAsync();
             if (pet != null)
             {
                 return pet;
