@@ -16,6 +16,8 @@ namespace apiPetMe.DomainServices
         private readonly DataContext dc;
         private readonly IWebHostEnvironment environment;
 
+        public UserDomain() { }
+
         public UserDomain(DataContext dc, IWebHostEnvironment environment)
         {
             this.dc = dc;

@@ -12,6 +12,10 @@ namespace apiPetMe.DomainServices
         {
             this.dc = dc;
         }
+        public RequestAdoptionDomain()
+        {
+
+        }
         public string isComplete(RequestAdoption requestAdoption)
         {
             if (requestAdoption.Name == null) return "Name not found";

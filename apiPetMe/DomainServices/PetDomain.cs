@@ -20,6 +20,10 @@ namespace apiPetMe.DomainServices
             this.dc = dc;
             this.environment = environment;
         }
+        public PetDomain()
+        {
+
+        }
         public string Complete(PetDto pet)
         {
             if (pet.Name == null) return "Name not found";

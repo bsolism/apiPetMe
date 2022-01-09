@@ -11,6 +11,10 @@ namespace apiPetMe.DomainServices
         {
             this.dc = dc;
         }
+        public DonationDomain()
+        {
+
+        }
         public string Complete(Donation donation)
         {
             if (donation.Monto == 0) return "Monto not found";
