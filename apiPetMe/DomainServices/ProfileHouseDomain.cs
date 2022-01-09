@@ -18,6 +18,10 @@ namespace apiPetMe.DomainServices
             this.dc = dc;
             this.environment = environment;
         }
+        public ProfileHouseDomain()
+        {
+
+        }
         public string isComplete(ProfileHouseDto profileHouseDto)
         {
             if (profileHouseDto.Name == null) return "Name not found";

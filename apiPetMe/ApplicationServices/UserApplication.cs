@@ -26,6 +26,10 @@ namespace apiPetMe.ApplicationServices
             this.uow = uow;
             this.mapper = mapper;
         }
+        public UserApplication()
+        {
+
+        }
         public async Task<IEnumerable<User>> GetUser()
         {
             return await dc.Users.Include(x=> x.RequestAdoptions).ToListAsync();
