@@ -18,8 +18,8 @@ namespace apiPetMe.Helper
         {
             // ConfigManager.Instance.GetProperties(); // it doesn't work on ASPNET 5
             return new Dictionary<string, string>() {
-                { "clientId", "AVpU-asojZ_Oh2JiEHUmzOolGOcwOvvQZvlZRJKAQDbgFBisnlirVmCbwyevKAtuRb8_w5fMAmQRSeCP" },
-                { "clientSecret", "EIS-kCiv5SQHPzDzGBF9gqeTOWUiWf3YlgVtTFaWGIl0OaytNuW6eP9ePPjTrr5cdMRTyn81WOIiz2g0" }
+                { },
+                { }
             };
         }
         private static string GetAccessToken()
